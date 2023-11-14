@@ -89,6 +89,22 @@ body {
     transform: translateY(2px);
 }
 
-
+#message-container {
+    max-height: 80vh; /* Đặt chiều cao tối đa của container, ví dụ 80% chiều cao của trình duyệt */
+    overflow-y: auto; /* Tạo thanh cuộn khi container quá cao */
+    border: 1px solid #ccc; /* Đường viền để dễ nhìn thấy */
+    padding: 10px;
+}
 /*====*/
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: #ffffff; /* Màu nền của thanh điều hướng */
+    z-index: 1000; /* Đảm bảo thanh điều hướng hiển thị trên cùng */
+}
 
+main {
+    margin-top: 50px; /* Điều chỉnh giá trị này tùy thuộc vào chiều cao của thanh điều hướng */
+    /* ... */
+}

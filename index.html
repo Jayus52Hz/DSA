@@ -7,13 +7,14 @@
     <title>Vocabulary App</title>
 </head>
 <body>
-    <div class="container">
-        <div class="tab">
+    <header>
+        <nav class="tab">
             <button class="tablinks" onclick="openTab(event, 'MyVocabulary')">My Vocabulary</button>
             <button class="tablinks" onclick="openTab(event, 'Practice')">Practice</button>
             <button class="tablinks" onclick="openTab(event, 'Game')">Game</button>
-        </div>
-
+        </nav>
+    </header>
+    <div class="container">
         <div id="MyVocabulary" class="tabcontent">
             <h2>My Vocabulary</h2>
             <p>Content related to My Vocabulary tab goes here.</p>
@@ -27,6 +28,12 @@
         <div id="Game" class="tabcontent">
             <h2>Game</h2>
             <p>Content related to Game tab goes here.</p>
+            <div id = "message-container">
+
+            </div>
+            <input type="text" id="message-input" placeholder="Nhập tin nhắn..." onkeydown="handleKeyPress(event)">
+            <button onclick="sendMessage()">Send</button>
+        
         </div>
     </div>
     
