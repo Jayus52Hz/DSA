@@ -11,6 +11,15 @@ body {
     margin: auto;
 }
 
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.result-container {
+    max-width: 600px;
+    margin: 20px auto;
+}
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
