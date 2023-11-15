@@ -17,9 +17,13 @@
     <div class="container">
         <div id="MyVocabulary" class="tabcontent">
             <h2>My Vocabulary</h2>
-            <p>Content related to My Vocabulary tab goes here.</p>
+            <div class="search-container">
+                <input type="text" id="wordSearch" placeholder="Search...">
+                <button onclick="searchDefine()">Tra từ</button>
+            </div>
+            <div id="result" class="result-container"></div>
         </div>
-
+    
         <div id="Practice" class="tabcontent">
             <h2>Practice</h2>
             <p>Content related to Practice tab goes here.</p>
@@ -36,6 +40,10 @@
         
         </div>
     </div>
+    
+
+    <script src="Trie.js"></script>
+    <script src="app.js"></script>
     
     <script src="scripts.js"></script>
 </body>
