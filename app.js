@@ -1,6 +1,6 @@
 
 // Tạo một cây Trie mới và một Map để lưu định nghĩa
-const trie = new Trie()
+const trie = new Dictionary()
 const definitionMap = new Map();
 
 // Hàm để thêm từ vựng vào cây Trie và Map
