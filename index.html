@@ -27,27 +27,32 @@
         <div id="Practice" class="tabcontent">
             <h2>Practice</h2>
             <p>Content related to Practice tab goes here.</p>
+            <button>Learn</button>
+            <button>Challenge</button>
+            <button>Test</button>
         </div>
 
         <div id="Game" class="tabcontent">
             <h2>Game</h2>
             <p>Content related to Game tab goes here.</p>
+            <button id = "start-game" onclick = "startGame()">Start</button>
+            <button id = "reset" onclick = "resetGame()">Reset</button>
+
             <div id = "message-container">
 
             </div>
             <input type="text" id="message-input" placeholder="Nhập tin nhắn..." onkeydown="handleKeyPress(event)">
-            <button onclick="sendMessage()">Send</button>
+            <button onclick="handleKeyPress(event,true)">Send</button>
         
         </div>
     </div>
-    
-
     <script src="./Dictionary.js"></script>
-    <script src="./app.js"></script>
     <script src = "./Bot.js"></script>
+    <script src = "./App.js"></script>
     <script src = "./Player.js"></script>
     <script src = "./GameChat.js"></script>
-    <script src="scripts.js"></script>
+    <script src="./scripts.js"></script>
 </body>
 </html>
+
 
