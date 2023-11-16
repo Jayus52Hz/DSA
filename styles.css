@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     font: 15px arial, sans-serif;
@@ -103,6 +102,15 @@ body {
     overflow-y: auto; /* Tạo thanh cuộn khi container quá cao */
     border: 1px solid #ccc; /* Đường viền để dễ nhìn thấy */
     padding: 10px;
+    width: 300px;
+    align-self: center;
+}
+#message-container div#message1 {
+    text-align: right;
+}
+  
+#message-container div#message2 {
+    text-align: left;
 }
 /*====*/
 header {
@@ -116,4 +124,8 @@ header {
 main {
     margin-top: 50px; /* Điều chỉnh giá trị này tùy thuộc vào chiều cao của thanh điều hướng */
     /* ... */
+}
+
+#Game {
+    grid-template-rows: 50% 50%;
 }
