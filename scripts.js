@@ -1,41 +1,4 @@
-//Random
-function rand(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-//dictionary
-class Dictionary{
-  constructor() {
-      this.dictionary = new Trie();
-  }
-  init(file){
-      var rawFile = new XMLHttpRequest();
-      rawFile.open("GET", file, false);
-      rawFile.onreadystatechange = () => {
-      if(rawFile.readyState === 4)  {
-          if(rawFile.status === 200 || rawFile.status == 0) {
-              var allText = rawFile.responseText;
-              var wordsArray = allText.split(/\s+/);
-              wordsArray.forEach((word) => {
-                  this.dictionary.addString(word);
-              });
-          }
-        }
-      }
-      rawFile.send(null);
-  }
-}
-var dictionary = new Dictionary();
-dictionary.init("./words_alpha.txt");
-//console.log('apple');
-console.log(dictionary.dictionary.findString('timer'));
-console.log(dictionary.dictionary.aWordStartWith('c'));
-
-
-
-
-
-function openTab(evt, tabName) {
+function openTab(event, tabName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -46,37 +9,57 @@ function openTab(evt, tabName) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
     document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
+    event.currentTarget.className += " active";
 }
 
-document.getElementById("defaultOpen").click();
+// var dictionary = new Dictionary();    
+// dictionary.init("./words_alpha.txt");
+var bot = new Bot('Machine',10, dictionary);
+var user = new Player('Phuong Ngan');
+var usedWords = new Dictionary();
+var match = new Game(dictionary,usedWords, bot, user, 50);
 
-function sendMessage(){
-    var messageInput = document.getElementById("message-input");
-    var message = messageInput.value.toLowerCase();
-    if (message.trim() !== ""){
-        var messageElement = document.createElement('div');
-        var check = dictionary.dictionary.findString(message);
-        messageElement.textContent = "Machine: "+ check;
-        var messageContainer = document.getElementById("message-container");
-        messageContainer.append(messageElement);
-        messageInput.value = "";
+
+
+
+function handleKeyPress(event,check = false) {
+    if (event.key === 'Enter' || check === true){
+        console.log('OK');
+        var messageInput = document.getElementById('message-input');
+        var message = messageInput.value.trim();
+        //console.log(match.checkAvailableWord(message));
+        if (message !== "" && match.checkAvailableWord(message)){
+            //User play
+            match.update(message,true);
+            addDivToContainer(message + ' :' + user.name,"message-container",'USER'); 
+            messageInput.value = "";
+            if (match.userPoint > match.pointLimit) window.alert(match.user.name + " is Winner");
+            else
+            {
+                //Bot play
+                var temp = '';
+                for(var step = 0; step < 10; step++) {
+                    var word = bot.aWord(String.fromCharCode(match.currentWord.charCodeAt(match.currentWord.length-1)));
+                    if (match.usedWords.findWord(word) === false) {
+                        if (temp.length < word.length) temp = word;
+                    }
+                }
+                match.update(temp, false);//update match points
+                addDivToContainer(bot.name + ': '+ match.currentWord, 'message-container','BOT'); 
+                if (match.botPoint > match.pointLimit) window.alert(match.bot.name + " is Winner");
+            }
+        }
+        messageInput.value = '';
     }
-    updateContainerHeight();
-}
-//Tracking user press Enter
-function handleKeyPress(event){
-    if (event.keyCode === 13){
-        sendMessage();
-    }
+    console.log(match.userPoint);
+    console.log(match.botPoint);
 }
 
-// Hàm để cập nhật chiều cao của container khi trang được tải hoặc thay đổi kích thước
-function updateContainerHeight() {
-    var windowHeight = window.innerHeight; // Chiều cao của trình duyệt
-    var container = document.getElementById("message-container");
-    container.style.maxHeight = windowHeight * 0.8 + "px"; // Đặt chiều cao tối đa của container là 80% chiều cao của trình duyệt
-    container.scrollTop = container.scrollHeight; // Cuộn xuống dưới cùng khi có tin nhắn mới
+function startGame(){
+    match.playGame();
 }
-window.addEventListener("load", updateContainerHeight);
-window.addEventListener("resize", updateContainerHeight);
+function resetGame(){
+    match = new Game(dictionary,usedWords, bot, user, 50);
+    startGame();
+    document.getElementById('message-container').innerHTML = '';
+}
