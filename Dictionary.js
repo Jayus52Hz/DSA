@@ -1,3 +1,8 @@
+
+function rand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 class Node {
     constructor() {
         this.child = new Array(26).fill(null);
@@ -98,3 +103,4 @@ class Dictionary {
         return S;
     }
 }
+
