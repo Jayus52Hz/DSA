@@ -1,11 +1,11 @@
 
 // Tạo một cây Trie mới và một Map để lưu định nghĩa
-const trie = new Dictionary()
+const dictionary = new Dictionary()
 const definitionMap = new Map();
 
 // Hàm để thêm từ vựng vào cây Trie và Map
 function addVocabToMap(vocab, definition) {
-  trie.addString(vocab);
+  dictionary.addWord(vocab);
   definitionMap.set(vocab, definition);
 }
 
@@ -43,7 +43,7 @@ function searchDefine() {
   const inputt = wordSearch.value.toLowerCase();
   try {
     // Tìm kiếm từ trong cây Trie thay vì dữ liệu từ API
-    const word = trie.findString(inputt);
+    const word = dictionary.findWord(inputt);
 
     // Hiển thị kết quả trên giao diện
     if (word) {
