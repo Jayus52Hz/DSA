@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Vocabulary App</title>
 </head>
+
 <body>
     <header>
         <nav class="tab">
@@ -18,12 +20,14 @@
         <div id="MyVocabulary" class="tabcontent">
             <h2>My Vocabulary</h2>
             <div class="search-container">
-                <input type="text" id="wordSearch" placeholder="Search...">
-                <button onclick="searchDefine()">Tra từ</button>
+                <input type="text" id="input" placeholder="Search...">
+                <ul id="autocompleteList" class="list"></ul>
+                <button id="searchButton">Tra từ</button>
+
             </div>
             <div id="result" class="result-container"></div>
         </div>
-    
+
         <div id="Practice" class="tabcontent">
             <h2>Practice</h2>
             <p>Content related to Practice tab goes here.</p>
@@ -35,24 +39,23 @@
         <div id="Game" class="tabcontent">
             <h2>Game</h2>
             <p>Content related to Game tab goes here.</p>
-            <button id = "start-game" onclick = "startGame()">Start</button>
-            <button id = "reset" onclick = "resetGame()">Reset</button>
+            <button id="start-game" onclick="startGame()">Start</button>
+            <button id="reset" onclick="resetGame()">Reset</button>
 
-            <div id = "message-container">
+            <div id="message-container">
 
             </div>
             <input type="text" id="message-input" placeholder="Nhập tin nhắn..." onkeydown="handleKeyPress(event)">
             <button onclick="handleKeyPress(event,true)">Send</button>
-        
+
         </div>
     </div>
     <script src="./Dictionary.js"></script>
-    <script src = "./Bot.js"></script>
-    <script src = "./app.js"></script>
-    <script src = "./Player.js"></script>
-    <script src = "./GameChat.js"></script>
+    <script src="./Bot.js"></script>
+    <script src="./app.js"></script>
+    <script src="./Player.js"></script>
+    <script src="./GameChat.js"></script>
     <script src="./scripts.js"></script>
 </body>
+
 </html>
-
-
