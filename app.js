@@ -40,7 +40,7 @@ async function readFile() {
 readFile();
 
 function searchDefine() {
-  const inputt = wordSearch.value.toLowerCase();
+  const inputt = input.value.toLowerCase();
   try {
     // Tìm kiếm từ trong cây Trie thay vì dữ liệu từ API
     const word = dictionary.findWord(inputt);
@@ -61,4 +61,42 @@ function searchDefine() {
   }
 }
 
-window.searchDefine = searchDefine;
+
+
+
+
+function handleInput() {
+  try {
+    removeElements();
+    const word = input.value.toLowerCase();
+    const suggestions = dictionary.suggest(word);
+
+    const autocompleteList = document.getElementById("autocompleteList");
+    suggestions.forEach(suggestion => {
+      const listItem = document.createElement("li");
+      listItem.textContent = suggestion;
+      autocompleteList.appendChild(listItem);
+      listItem.addEventListener("click", function () {
+        input.value = suggestion;
+        removeElements();
+      });
+    });
+  } catch (error) {
+    console.error('This word has no suggestions!!!', error);
+  }
+};
+
+function removeElements() {
+  const autocompleteList = document.getElementById("autocompleteList");
+  while (autocompleteList.firstChild) {
+    autocompleteList.removeChild(autocompleteList.firstChild);
+  }
+}
+
+
+document.getElementById("searchButton").addEventListener("click", searchDefine);
+document.getElementById("input").addEventListener("keyup", function (event) {
+  if (event.key == "Enter")
+    searchDefine();
+});
+document.getElementById("input").addEventListener("input", handleInput);
