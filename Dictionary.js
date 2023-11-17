@@ -102,5 +102,30 @@ class Dictionary {
         }
         return S;
     }
+    suggestHelper(node, list, curr, maxx) {
+        if (node.exist > 0 && list.length < maxx) {
+            list.push(curr);
+        }
+        for (let i = 0; i < 26; i++) {
+            if (node.child[i] !== null) {
+                this.suggestHelper(node.child[i], list, curr + String.fromCharCode(i + 'a'.charCodeAt(0)), maxx);
+            }
+        }
+    }
+
+    suggest(word, maxx = 20) {
+        let node = this.root;
+        for (let i = 0; i < word.length; i++) {
+            const c = word.charCodeAt(i) - 'a'.charCodeAt(0);
+            if (!node.child[c]) {
+                return;
+            }
+            node = node.child[c];
+        }
+
+        let list = [];
+        this.suggestHelper(node, list, word, maxx);
+        return list;
+    }
 }
 
