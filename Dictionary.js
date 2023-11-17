@@ -8,6 +8,7 @@ class Node {
         this.child = new Array(26).fill(null);
         this.exist = 0;
         this.cnt = 0;
+        this.mean = '';
     }
 }
 class Dictionary {
@@ -25,7 +26,7 @@ class Dictionary {
             //console.log(line);
         });
     }
-    addWord(s) {
+    addWord(s, mean = '') {
         let p = this.root;
         for (let i = 0; i < s.length; i++) {
             const f = s.charAt(i);
@@ -35,6 +36,18 @@ class Dictionary {
             p.cnt++;
         }
         p.exist++;
+        p.mean = mean;
+    }
+    getMean(s){
+        let p = this.root;
+        for (let i = 0; i < s.length; i++) {
+            const f = s.charAt(i);
+            const c = f.charCodeAt(0) - 'a'.charCodeAt(0);
+            if (!p.child[c]) return null;
+            p = p.child[c];
+        }
+        if (p.exist > 0) return p.mean;
+        return null;
     }
 
     deleteWordRecursive(p, s, i) {

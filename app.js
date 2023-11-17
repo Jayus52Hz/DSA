@@ -1,12 +1,10 @@
 
 // Tạo một cây Trie mới và một Map để lưu định nghĩa
 const dictionary = new Dictionary()
-const definitionMap = new Map();
 
-// Hàm để thêm từ vựng vào cây Trie và Map
+// Hàm để thêm từ vựng vào cây Trie
 function addVocabToMap(vocab, definition) {
-  dictionary.addWord(vocab);
-  definitionMap.set(vocab, definition);
+  dictionary.addWord(vocab, definition);
 }
 
 async function readFile() {
@@ -47,8 +45,8 @@ function searchDefine() {
 
     // Hiển thị kết quả trên giao diện
     if (word) {
-      const definition = definitionMap.get(inputt);
-      if (definition)
+      const definition = dictionary.getMean(inputt);
+      if (definition != null)
         result.innerHTML = `<p><strong>${inputt}:</strong> ${definition}</p>`;
       else
         result.innerHTML = `<p><strong>${inputt}:</strong> This word is not found in the dictionary. </p>`;
@@ -60,9 +58,6 @@ function searchDefine() {
     result.innerHTML = 'search error!!!';
   }
 }
-
-
-
 
 
 function handleInput() {
