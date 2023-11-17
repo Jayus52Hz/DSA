@@ -12,19 +12,15 @@ function openTab(event, tabName) {
     event.currentTarget.className += " active";
 }
 
-// var dictionary = new Dictionary();    
-// dictionary.init("./words_alpha.txt");
-var bot = new Bot('Machine',10, dictionary);
+var bot = new Bot('Machine');
 var user = new Player('Phuong Ngan');
-var usedWords = new Dictionary();
-var match = new Game(dictionary,usedWords, bot, user, 50);
+var match;
 
 
 
 
 function handleKeyPress(event,check = false) {
     if (event.key === 'Enter' || check === true){
-        console.log('OK');
         var messageInput = document.getElementById('message-input');
         var message = messageInput.value.trim();
         //console.log(match.checkAvailableWord(message));
@@ -37,13 +33,7 @@ function handleKeyPress(event,check = false) {
             else
             {
                 //Bot play
-                var temp = '';
-                for(var step = 0; step < 10; step++) {
-                    var word = bot.aWord(String.fromCharCode(match.currentWord.charCodeAt(match.currentWord.length-1)));
-                    if (match.usedWords.findWord(word) === false) {
-                        if (temp.length < word.length) temp = word;
-                    }
-                }
+                var temp = match.bot.aWord(String.fromCharCode(match.currentWord.charCodeAt(match.currentWord.length-1)));
                 match.update(temp, false);//update match points
                 addDivToContainer(bot.name + ': '+ match.currentWord, 'message-container','BOT'); 
                 if (match.botPoint > match.pointLimit) window.alert(match.bot.name + " is Winner");
@@ -51,15 +41,26 @@ function handleKeyPress(event,check = false) {
         }
         messageInput.value = '';
     }
-    console.log(match.userPoint);
-    console.log(match.botPoint);
+    document.getElementById('user-point').textContent = match.userPoint;
+    document.getElementById('bot-point').textContent = match.botPoint;
 }
-
+var pointLimit = 50;
+function setPointLimit(event){
+    if (event.key == 'Enter'){
+        var pointInput = document.getElementById("point-limit").value.trim();
+        if (pointInput!== '') {
+            pointLimit = pointInput;
+        }
+        console.log(pointLimit);
+        document.getElementById("point-limit").value = '';
+    }
+}
 function startGame(){
+    match = new Game(bot, user,pointLimit);
     match.playGame();
 }
 function resetGame(){
-    match = new Game(dictionary,usedWords, bot, user, 50);
-    startGame();
     document.getElementById('message-container').innerHTML = '';
+    startGame();
+
 }

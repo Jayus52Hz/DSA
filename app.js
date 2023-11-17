@@ -72,6 +72,7 @@ function handleInput() {
     const suggestions = dictionary.suggest(word);
 
     const autocompleteList = document.getElementById("autocompleteList");
+    if (suggestions != null) 
     suggestions.forEach(suggestion => {
       const listItem = document.createElement("li");
       listItem.textContent = suggestion;

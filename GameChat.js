@@ -9,9 +9,10 @@ function addDivToContainer(source,container,className) {
 }
 
 class Game {
-      constructor(dictionary, usedWords, bot, user, pointLimit) {
-            this.dictionary = dictionary;
-            this.usedWords = usedWords;
+      constructor(bot, user, pointLimit) {
+            this.dictionary = new Dictionary();
+            this.dictionary.init("./words_alpha.txt");
+            this.usedWords = new Dictionary();
             this.bot = bot;
             this.user = user;
             this.botPoint = 0;
@@ -23,8 +24,9 @@ class Game {
             this.currentWord = bot.aWord(String.fromCharCode('a'.charCodeAt(0) + rand(0, 25)));
             this.botPoint += this.currentWord.length;
             this.usedWords.addWord(this.currentWord);
-            addDivToContainer(this.bot.name + ': ' + this.currentWord,'message-container','BOT'); 
-            
+            addDivToContainer(this.bot.name + ': ' + this.currentWord,'message-container','BOT');  
+            document.getElementById('bot-point').textContent = match.botPoint;
+            document.getElementById('user-point').textContent = match.userPoint;
       }
       checkAvailableWord(word){
             // console.log(this.usedWords.findWord(word) === false );
@@ -39,5 +41,6 @@ class Game {
             this.usedWords.addWord(message);
             if (pointForUser === true) this.userPoint += message.length;
             else this.botPoint += message.length;
+            this.bot.brain.deleteWord(message);
       }
 }

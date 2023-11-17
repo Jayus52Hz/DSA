@@ -86,21 +86,32 @@ class Dictionary {
     }
 
     aWordStartWith(c) {
+        console.log("--------------------------------");
         var index = c.charCodeAt(0) - 'a'.charCodeAt(0);
         let p = this.root.child[index];
         let S = c;
         while (p !== null && p.cnt > 0) {
-            index = rand(0, 25);
-            var save = new Set();
-            while (p.child[index] === null || p.child[index].cnt <= 0) {
-                save.add(index);
-                if (save.size === 26) return S;
-                index = rand(0, 25);
+            index = 0;
+            var list = [...Array(25).keys()];
+            list.splice(list.indexOf(index), 1);
+            while (p.child[index] === null){
+                if (list.length === 0) return S;
+                index = list[Math.floor(Math.random() * list.length)];
+                list.splice(list.indexOf(index), 1);
             }
+            console.log(list);
             S += String.fromCharCode(index + 'a'.charCodeAt(0));
             p = p.child[index];
         }
         return S;
+    }
+    maximumWord(c){
+        var word = this.aWordStartWith(c);
+        for(var i = 0; i < 10; i++){
+            var temp = this.aWordStartWith(c);
+            if (temp.length > word.length) word = temp;
+        }
+        return word;
     }
     suggestHelper(node, list, curr, maxx) {
         if (node.exist > 0 && list.length < maxx) {

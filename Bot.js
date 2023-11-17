@@ -1,10 +1,12 @@
 class Bot{
     constructor(name,level,dictionary){
         this.name = name;
-        this.level = level;
-        this.brain = dictionary;
+        this.brain = new Dictionary();
+        this.brain.init("./words_alpha.txt");
     }
     aWord(c){
-        return this.brain.aWordStartWith(c);
+        var word = this.brain.maximumWord(c);
+        this.brain.deleteWord(word);
+        return word;
     }
 }

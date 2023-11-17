@@ -39,10 +39,12 @@
         <div id="Game" class="tabcontent">
             <h2>Game</h2>
             <p>Content related to Game tab goes here.</p>
-            <button id="start-game" onclick="startGame()">Start</button>
-            <button id="reset" onclick="resetGame()">Reset</button>
-
-            <div id="message-container">
+            <button id = "start-game" onclick = "startGame()">Start</button>
+            <button id = "reset" onclick = "resetGame()">Reset</button>
+            <input type="number" id = "point-limit" value onkeypress="setPointLimit(event)">
+            <span id = "user-point" >0</span>
+            <span id = "bot-point" >0</span>
+            <div id = "message-container">
 
             </div>
             <input type="text" id="message-input" placeholder="Nhập tin nhắn..." onkeydown="handleKeyPress(event)">
