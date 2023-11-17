@@ -15,21 +15,15 @@ class Dictionary {
         this.cur = 0;
         this.root = new Node();
     }
-    init(file) {
-        var rawFile = new XMLHttpRequest();
-        rawFile.open("GET", file, false);
-        rawFile.onreadystatechange = () => {
-            if (rawFile.readyState === 4) {
-                if (rawFile.status === 200 || rawFile.status == 0) {
-                    var allText = rawFile.responseText;
-                    var wordsArray = allText.split(/\s+/);
-                    wordsArray.forEach((word) => {
-                        this.addWord(word);
-                    });
-                }
-            }
-        }
-        rawFile.send(null);
+    async init(file) {
+        var response = await fetch(file);
+        var temp = await response.text();
+        var lines = temp.split('\n');
+        lines.forEach(line => {
+            line = line.trim();
+            this.addWord(line);
+            //console.log(line);
+        });
     }
     addWord(s) {
         let p = this.root;
