@@ -2,40 +2,7 @@
 // Tạo một cây Trie mới và một Map để lưu định nghĩa
 const dictionary = new Dictionary()
 
-// Hàm để thêm từ vựng vào cây Trie
-function addVocabToMap(vocab, definition) {
-  dictionary.addWord(vocab, definition);
-}
-
-async function readFile() {
-  try {
-    // Gửi yêu cầu đến tệp văn bản (ví dụ: vocab.txt)
-    const response = await fetch('word_define.txt');
-    const text = await response.text();
-
-    // Tách từng dòng từ văn bản
-    const lines = text.split('\n');
-
-    var cnt = 0;
-    // Duyệt qua từng dòng và thêm từ vựng vào cây Trie và Map
-    lines.forEach(line => {
-      cnt++;
-      const [vocab, definition] = line.split(':');
-      if (vocab && definition) {
-        addVocabToMap(vocab, definition);
-      }
-      console.log(vocab + "                " + definition);
-
-    });
-
-    console.log(cnt);
-
-  } catch (error) {
-    console.error('error read file!!!', error);
-  }
-}
-
-readFile();
+dictionary.init("word_define.txt");
 
 function searchDefine() {
   const inputt = input.value.toLowerCase();
