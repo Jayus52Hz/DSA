@@ -126,3 +126,14 @@ main {
 #Game {
     grid-template-rows: 50% 50%;
 }
+#practice-container{
+    max-height: 80vh;
+    /* Đặt chiều cao tối đa của container, ví dụ 80% chiều cao của trình duyệt */
+    overflow-y: auto;
+    /* Tạo thanh cuộn khi container quá cao */
+    border: 1px solid #ccc;
+    /* Đường viền để dễ nhìn thấy */
+    padding: 10px;
+    width: 300px;
+    align-self: center;
+}
