@@ -17,14 +17,31 @@ class Dictionary {
         this.root = new Node();
     }
     async init(file) {
-        var response = await fetch(file);
-        var temp = await response.text();
-        var lines = temp.split('\n');
-        lines.forEach(line => {
-            line = line.trim();
-            this.addWord(line);
-            //console.log(line);
-        });
+        try {
+            var response = await fetch(file);
+            var temp = await response.text();
+            var lines = temp.split('\n');
+
+            ///đếm số từ xem đủ không
+            var cnt = 0;
+
+            lines.forEach(line => {
+                //line = line.trim();  này code cũ
+                //this.addWord(line);
+                //console.log(line);
+                /// code mới thay thế 
+                cnt++;
+                const [vocab, definition] = line.split(':');
+                if (vocab && definition) {
+                    this.addWord(vocab, definition);
+                }
+                console.log(vocab + "                " + definition);
+            });
+
+            console.log(cnt);
+        } catch (error) {
+            console.error('error read file!!!', error);
+        }
     }
     addWord(s, mean = '') {
         let p = this.root;
@@ -38,7 +55,7 @@ class Dictionary {
         p.exist++;
         p.mean = mean;
     }
-    getMean(s){
+    getMean(s) {
         let p = this.root;
         for (let i = 0; i < s.length; i++) {
             const f = s.charAt(i);
@@ -101,7 +118,7 @@ class Dictionary {
             index = 0;
             var list = [...Array(25).keys()];
             list.splice(list.indexOf(index), 1);
-            while (p.child[index] === null){
+            while (p.child[index] === null) {
                 if (list.length === 0) return S;
                 index = list[Math.floor(Math.random() * list.length)];
                 list.splice(list.indexOf(index), 1);
@@ -112,9 +129,9 @@ class Dictionary {
         }
         return S;
     }
-    maximumWord(c){
+    maximumWord(c) {
         var word = this.aWordStartWith(c);
-        for(var i = 0; i < 10; i++){
+        for (var i = 0; i < 10; i++) {
             var temp = this.aWordStartWith(c);
             if (temp.length > word.length) word = temp;
         }
