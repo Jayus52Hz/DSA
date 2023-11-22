@@ -35,10 +35,10 @@ class Dictionary {
                 if (vocab && definition) {
                     this.addWord(vocab, definition);
                 }
-                console.log(vocab + "                " + definition);
+                //console.log(vocab + "                " + definition);
             });
 
-            console.log(cnt);
+            //console.log(cnt);
         } catch (error) {
             console.error('error read file!!!', error);
         }
@@ -110,7 +110,7 @@ class Dictionary {
     }
 
     aWordStartWith(c) {
-        console.log("--------------------------------");
+        //console.log("--------------------------------");
         var index = c.charCodeAt(0) - 'a'.charCodeAt(0);
         let p = this.root.child[index];
         let S = c;
@@ -123,7 +123,7 @@ class Dictionary {
                 index = list[Math.floor(Math.random() * list.length)];
                 list.splice(list.indexOf(index), 1);
             }
-            console.log(list);
+            //console.log(list);
             S += String.fromCharCode(index + 'a'.charCodeAt(0));
             p = p.child[index];
         }
