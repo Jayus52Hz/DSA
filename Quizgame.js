@@ -30,6 +30,19 @@ function createQuestion(){
       addDivToContainer("C: " + arr[2],"practice-container","choice");
       addDivToContainer("D: " + arr[3],"practice-container","choice");
 }
+function createQuestionTest(){
+      arr = [];
+      for(var i = 0 ; i < 4; i++)                  
+      { 
+            arr.push(arrqq[rand(0,arrqq.length)]);
+      }
+      x = rand(0,3);
+      addDivToContainer("Mean: " + quangdb.getMean(arr[x]) + " ?","practice-container","quesion");
+      addDivToContainer("A: " + arr[0],"practice-container","choice");
+      addDivToContainer("B: " + arr[1],"practice-container","choice");
+      addDivToContainer("C: " + arr[2],"practice-container","choice");
+      addDivToContainer("D: " + arr[3],"practice-container","choice");
+}
 function setTime(){
       times = parseInt (window.prompt("Ban muon choi bao nhieu lan ?"));
 }
@@ -77,11 +90,22 @@ document.getElementById("user-reply").addEventListener("keydown",function(event)
                               maximum = count;
                         }
                         else window.alert("You lost ! Your score is " + count);           
-                  }      
+                  }     
+            } 
+            else if (modePractice ==3) {
+                  if (times > 0)
+                  {
+                        if (ans != ""){
+                              times--;
+                              printResult(check(x,ans));
+                              createQuestionTest();
+                        }
+                  }                  
+                  if (times == 0) window.alert("End game!");
             }
             document.getElementById("user-reply").value = '';
       }
-});
+})
 
 function printResult(check){
       if (check) {
@@ -93,26 +117,12 @@ function printResult(check){
       }
 }
 function test(){
-      var count =0;
-      //var times = parseInt (window.prompt("Times?"));
-      var timess = times;
-      while (times-- > 0){
-            var arr = [];
-            for(var i = 0 ; i<4; i++)
-            { arr.push(arrqq[rand(0, arrqq.length-1)]);
-            }
-            var x = rand(0,3);
-            console.log("Nghia:" + quangdb.getMean(arr[x]));
-            console.log("A: " + arr[0]);
-            console.log("B: " + arr[1]);
-            console.log("C: " + arr[2]);
-            console.log("D: " + arr[3]);
-            var ans = window.prompt(" ");
-            if(check(x, ans)) count++; 
-      }
-            console.log("Your point is " + count + "/" + timess);
-            
+      modePractice = 3;
+      resetPractice();
+      setTime();
+      createQuestionTest();
 }
+
 
 
 function challenge(){
