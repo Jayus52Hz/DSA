@@ -1,3 +1,8 @@
+#user-reply,
+#submit-button {
+    display: none;
+}
+
 body {
     font-family: Arial, sans-serif;
     font: 15px arial, sans-serif;

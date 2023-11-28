@@ -13,6 +13,10 @@ var x;
 var arr = [];
 var maximum =0;
 var count = 0;
+function showUserInput() {
+      document.getElementById("user-reply").style.display = "block";
+      document.getElementById("submit-button").style.display = "block";
+  }
 function resetPractice(){
       document.getElementById("practice-container").textContent = '';
 }
@@ -39,15 +43,7 @@ function setTime(){
       times = parseInt (window.prompt("Ban muon choi bao nhieu lan ?"));
 }
 var modePractice = 1;
-function learn(){
-      modePractice = 1;
-      resetPractice();
-      setTime();
-      createQuestion();
-}
-//1: learn
-//2: challenge
-//3: test
+
 document.getElementById("user-reply").addEventListener("keydown",function(event){
       if (event.key == "Enter"){
             console.log(modePractice);
@@ -116,6 +112,7 @@ function printResult(check){
       }
 }
 function test(){
+      showUserInput();
       modePractice = 3;
       resetPractice();
       setTime();
@@ -123,6 +120,7 @@ function test(){
 }
 
 function challenge(){
+      showUserInput();
       count =0;
       modePractice = 2;
 
@@ -130,3 +128,13 @@ function challenge(){
       window.alert("Ban duoc sai toi da " + timesChallenge);
       createQuestion();
 }
+function learn(){
+      showUserInput();
+      modePractice = 1;
+      resetPractice();
+      setTime();
+      createQuestion();
+}
+//1: learn
+//2: challenge
+//3: test
